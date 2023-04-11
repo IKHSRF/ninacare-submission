@@ -10,8 +10,7 @@ class UserController extends Controller
     public function filter(Request $request)
     {
         try {
-            $data = UserModel::with('language', 'religion')
-                ->join('childrens', 'childrens.user_id', 'users.id')
+            $data = UserModel::with('language', 'religion', '')
                 ->where(function ($query) use ($request) {
                     if ($request->filter['name']) {
                         $query->where('users.name', $request->filter['name']);

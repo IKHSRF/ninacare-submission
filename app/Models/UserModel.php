@@ -31,4 +31,9 @@ class UserModel extends Model
     {
         return $this->belongsTo(ReligionModel::class, 'religion', 'id');
     }
+
+    public function children()
+    {
+        return $this->hasOne(ChildrenModel::class, 'user_id', 'id');
+    }
 }
