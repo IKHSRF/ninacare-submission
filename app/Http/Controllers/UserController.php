@@ -12,23 +12,20 @@ class UserController extends Controller
         try {
             $data = UserModel::with(['language', 'religion', 'children' => function ($query) {
                 $query->with(['language', 'religion']);
-            }])
-                ->where(function ($query) use ($request) {
-                    if ($request->filter['name']) {
-                        $query->where('users.name', $request->filter['name']);
-                    }
-                    if ($request->filter['age'] && filter_var($request->filter['age'], FILTER_VALIDATE_INT) === true) {
-                        $query->where('users.age', $request->filter['age']);
-                    }
-                    if ($request->filter['gender'] && filter_var($request->filter['gender'], FILTER_VALIDATE_INT) === true) {
-                        $query->where('users.gender', $request->filter['gender']);
-                    }
-                    if ($request->filter['location']) {
-                        $query->where('users.location', $request->filter['location']);
-                    }
-                })
-                ->paginate(15);
-
+            }])->where(function ($query) use ($request) {
+                if ($request->filter['name']) {
+                    $query->where('users.name', $request->filter['name']);
+                }
+                if ($request->filter['age'] && filter_var($request->filter['age'], FILTER_VALIDATE_INT) === true) {
+                    $query->where('users.age', $request->filter['age']);
+                }
+                if ($request->filter['gender'] && filter_var($request->filter['gender'], FILTER_VALIDATE_INT) === true) {
+                    $query->where('users.gender', $request->filter['gender']);
+                }
+                if ($request->filter['location']) {
+                    $query->where('users.location', $request->filter['location']);
+                }
+            })->paginate(15);
 
             return response()->json([
                 'users' => $data,
