@@ -21,4 +21,14 @@ class UserModel extends Model
         'language',
         'religion'
     ];
+
+    public function language()
+    {
+        return $this->belongsTo(LanguageModel::class, 'language', 'id');
+    }
+
+    public function religion()
+    {
+        return $this->belongsTo(ReligionModel::class, 'religion', 'id');
+    }
 }
